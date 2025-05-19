@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Flexbox Guide</title>
+    <style>
+        /* --- General Styles (unchanged) --- */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #2c3e50;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .flexbox-container {
+            border: 2px solid #3498db;
+            padding: 10px;
+            margin: 20px 0;
+            border-radius: 5px;
+            display: flex;
+            /* Initial flex container declaration */
+        }
+
+        .flex-item {
+            background-color: #3498db;
+            color: white;
+            padding: 15px;
+            margin: 5px;
+            border-radius: 3px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .controls {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+        }
+
+        button,
+        select {
+            background-color: #2980b9;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            margin: 5px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover,
+        select:hover {
+            background-color: #1c6091;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            overflow-x: auto;
+        }
+
+        /* --- Flexbox Property Styles --- */
+
+        /* Flex Direction */
+        .flex-direction-row {
+            flex-direction: row;
+        }
+
+        .flex-direction-column {
+            flex-direction: column;
+        }
+
+        .flex-direction-row-reverse {
+            flex-direction: row-reverse;
+        }
+
+        .flex-direction-column-reverse {
+            flex-direction: column-reverse;
+        }
+
+        /* Flex Wrap */
+        .flex-nowrap {
+            flex-wrap: nowrap;
+        }
+
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+
+        .flex-wrap-reverse {
+            flex-wrap: wrap-reverse;
+        }
+
+        /* Justify Content */
+        .justify-content-flex-start {
+            justify-content: flex-start;
+        }
+
+        .justify-content-flex-end {
+            justify-content: flex-end;
+        }
+
+        .justify-content-center {
+            justify-content: center;
+        }
+
+        .justify-content-space-between {
+            justify-content: space-between;
+        }
+
+        .justify-content-space-around {
+            justify-content: space-around;
+        }
+
+        .justify-content-space-evenly {
+            justify-content: space-evenly;
+        }
+
+        /* Align Items */
+        .align-items-container {
+            height: 200px;
+            background-color: #f0f0f0;
+        }
+
+        .align-items-flex-start {
+            align-items: flex-start;
+        }
+
+        .align-items-flex-end {
+            align-items: flex-end;
+        }
+
+        .align-items-center {
+            align-items: center;
+        }
+
+        .align-items-stretch {
+            align-items: stretch;
+        }
+
+        .align-items-baseline {
+            align-items: baseline;
+        }
+
+        .align-items-baseline .flex-item:nth-child(2) {
+            font-size: 30px;
+            padding-top: 30px;
+        }
+
+        .align-items-baseline .flex-item:nth-child(4) {
+            font-size: 20px;
+            padding-bottom: 30px;
+        }
+
+        /* Align Content */
+        .align-content-container {
+            flex-wrap: wrap;
+            height: 300px;
+            background-color: #f0f0f0;
+        }
+
+        .align-content-flex-start {
+            align-content: flex-start;
+        }
+
+        .align-content-flex-end {
+            align-content: flex-end;
+        }
+
+        .align-content-center {
+            align-content: center;
+        }
+
+        .align-content-space-between {
+            align-content: space-between;
+        }
+
+        .align-content-space-around {
+            align-content: space-around;
+        }
+
+        .align-content-stretch {
+            align-content: stretch;
+        }
+
+        /* Flex Item Properties */
+        .flex-grow-example {}
+
+        .flex-grow-1 {
+            flex-grow: 1;
+        }
+
+        .flex-grow-2 {
+            flex-grow: 2;
+        }
+
+        .flex-grow-3 {
+            flex-grow: 3;
+        }
+
+        .flex-shrink-example {}
+
+        .flex-shrink-1 {
+            flex-shrink: 1;
+            width: 200px;
+        }
+
+        .flex-shrink-2 {
+            flex-shrink: 2;
+            width: 200px;
+        }
+
+        .flex-shrink-3 {
+            flex-shrink: 3;
+            width: 200px;
+        }
+
+        .flex-basis-example {}
+
+        .flex-basis-100 {
+            flex-basis: 100px;
+        }
+
+        .flex-basis-200 {
+            flex-basis: 200px;
+        }
+
+        .flex-basis-300 {
+            flex-basis: 300px;
+        }
+
+        /* Shorthand flex */
+        .flex-shorthand-example {}
+
+        .flex-1 {
+            flex: 1;
+        }
+
+        .flex-2 {
+            flex: 2;
+        }
+
+        .flex-3 {
+            flex: 3;
+        }
+
+        /* Align Self */
+        .align-self-container {
+            height: 200px;
+            background-color: #f0f0f0;
+        }
+
+        .align-self-flex-start {
+            align-self: flex-start;
+        }
+
+        .align-self-flex-end {
+            align-self: flex-end;
+        }
+
+        .align-self-center {
+            align-self: center;
+        }
+
+        .align-self-stretch {
+            align-self: stretch;
+        }
+
+        .align-self-baseline {
+            align-self: baseline;
+            font-size: 30px;
+            padding-top: 20px;
+        }
+
+        /* Order */
+        .order-example {}
+
+        .order-1 {
+            order: 1;
+        }
+
+        .order-2 {
+            order: 2;
+        }
+
+        .order-3 {
+            order: 3;
+        }
+
+        .order-minus-1 {
+            order: -1;
+        }
+
+        /* Responsive Flexbox */
+        .responsive-example {
+            flex-wrap: wrap;
+        }
+
+        .responsive-item {
+            flex: 1 1 300px;
+        }
+
+        /* Nested Flexbox */
+        .nested-container {
+            flex-direction: column;
+        }
+
+        .nested-row {
+            justify-content: space-between;
+        }
+
+        .nested-item {
+            flex: 1;
+            margin: 5px;
+        }
+    </style>
+    <script>
+        function updateFlexContainer(containerClass, property, value) {
+            const container = document.querySelector(`.${containerClass}`);
+            if (container) {
+                container.style[property] = value;
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Comprehensive CSS Flexbox Guide</h1>
+        <p>This interactive guide demonstrates the power and versatility of CSS Flexbox for modern web layouts.</p>
+
+        <div class="section">
+            <h2>1. Display</h2>
+            <p>The <code>display</code> property is fundamental. Setting it to <code>flex</code> or
+                <code>inline-flex</code> on a container enables Flexbox behavior for its direct children (flex items).
+            </p>
+            <h3>display: flex;</h3>
+            <p>Creates a block-level flex container.</p>
+            <div class="flexbox-container basic-flexbox">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+            </div>
+            <pre><code>display: flex;</code></pre>
+            <h3>Interactive:</h3>
+            <div class="controls">
+                <button onclick="updateFlexContainer('basic-flexbox', 'display', 'flex')">display: flex</button>
+                <button onclick="updateFlexContainer('basic-flexbox', 'display', 'inline-flex')">display:
+                    inline-flex</button>
+                <button onclick="updateFlexContainer('basic-flexbox', 'display', 'block')">display: block</button>
+            </div>
+            <p class="notes">
+                <b>Note:</b>
+            <ul>
+                <li>
+                    <code>flex</code> makes the container a block-level element.
+                </li>
+                <li>
+                    <code>inline-flex</code> makes it an inline-level element.
+                </li>
+            </ul>
+            </p>
+        </div>
+
+        <div class="section">
+            <h2>2. Flex Direction</h2>
+            <p><code>flex-direction</code> establishes the main axis, defining the direction items are placed in the
+                flex container.</p>
+
+            <h3>flex-direction: row (default)</h3>
+            <p>Items are placed horizontally (left to right in LTR languages).</p>
+            <div class="flexbox-container flex-direction-row">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+            </div>
+            <pre><code>flex-direction: row;</code></pre>
+            <div class="controls">
+                <button onclick="updateFlexContainer('flex-direction-row', 'flexDirection', 'row')">row</button>
+                <button onclick="updateFlexContainer('flex-direction-row', 'flexDirection', 'column')">column</button>
+                <button
+                    onclick="updateFlexContainer('flex-direction-row', 'flexDirection', 'row-reverse')">row-reverse</button>
+                <button
+                    onclick="updateFlexContainer('flex-direction-row', 'flexDirection', 'column-reverse')">column-reverse</button>
+            </div>
+
+            <h3>flex-direction: column</h3>
+            <p>Items are placed vertically (top to bottom).</p>
+            <div class="flexbox-container flex-direction-column">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+            </div>
+            <pre><code>flex-direction: column;</code></pre>
+            <div class="controls">
+                <button onclick="updateFlexContainer('flex-direction-column', 'flexDirection', 'row')">row</button>
+                <button
+                    onclick="updateFlexContainer('flex-direction-column', 'flexDirection', 'column')">column</button>
+                <button
+                    onclick="updateFlexContainer('flex-direction-column', 'flexDirection', 'row-reverse')">row-reverse</button>
+                <button
+                    onclick="updateFlexContainer('flex-direction-column', 'flexDirection', 'column-reverse')">column-reverse</button>
+            </div>
+
+            <h3>flex-direction: row-reverse</h3>
+            <p>Items are placed horizontally (right to left in LTR languages).</p>
+            <div class="flexbox-container flex-direction-row-reverse">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+            </div>
+            <pre><code>flex-direction: row-reverse;</code></pre>
+            <div class="controls">
+                <button onclick="updateFlexContainer('flex-direction-row-reverse', 'flexDirection', 'row')">row</button>
+                <button
+                    onclick="updateFlexContainer('flex-direction-row-reverse', 'flexDirection', 'column')">column</button>
+                <button
+                    onclick="updateFlexContainer('flex-direction-row-reverse', 'flexDirection', 'row-reverse')">row-reverse</button>
+                <button
+                    onclick="updateFlexContainer('flex-direction-row-reverse', 'flexDirection', 'column-reverse')">column-reverse</button>
+            </div>
+
+            <h3>flex-direction: column-reverse</h3>
+            <p>Items are placed vertically (bottom to top).</p>
+            <div class="flexbox-container flex-direction-column-reverse">
+                <div class="flex-item">Item 1</div>
+                <div class="flex-item">Item 2</div>
+                <div class="flex-item">Item 3</div>
+            </div>
+            <pre><code>flex-direction: column-reverse;</code></pre>
+            <div class="controls">
+                <button
+                    onclick="updateFlexContainer('flex-direction-column-reverse', 'flexDirection', 'row')">row</button>
+                <button
+                    onclick="updateFlexContainer('flex-direction-column-reverse', 'flexDirection', 'column')">column</button>
+                <button
+                    onclick="updateFlexContainer('flex-direction-column-reverse', 'flexDirection', 'row-reverse')">row-reverse</button>
+                <button
+                    onclick="updateFlexContainer('flex-direction-column-reverse', 'flexDirection', 'column-reverse')">column-reverse</button>
+            </div>
+
+
+
+            <div class="flex-item responsive-item">Responsive Item 6</div>
+        </div>
+        <pre><code>
+.container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.item {
+    flex: 1 1 300px; /* grow, shrink, basis */
+}
+            </code></pre>
+    </div>
+
+    <div class="section">
+        <h2>Nested Flexbox</h2>
+        <p>Flexbox containers can be nested within each other to create complex layouts:</p>
+        <div class="flexbox-container nested-container">
+            <div class="nested-row">
+                <div class="flex-item nested-item">Nested Item 1</div>
+                <div class="flex-item nested-item">Nested Item 2</div>
+            </div>
+            <div class="nested-row">
+                <div class="flex-item nested-item">Nested Item 3</div>
+                <div class="flex-item nested-item">Nested Item 4</div>
+            </div>
+        </div>
+        <pre><code>
+.container {
+    display: flex;
+    flex-direction: column;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+.item {
+    flex: 1;
+    margin: 5px;
+}
+            </code></pre>
+    </div>
+
+
+    <div class="section">
+        <h2>Flex box wrap</h2>
+
+
+        <p>Flexbox containers can be nested within each other to create complex layouts:</p>
+
+
+        <div class="flex-container-02">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+            <div>6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div>10</div>
+            <div>11</div>
+            <div>12</div>
+            <div>13</div>
+            <div>14</div>
+            <div>15</div>
+            <div>16</div>
+            <div>17</div>
+            <div>18</div>
+            <div>19</div>
+            <div>20</div>
+            <div>21</div>
+            <div>22</div>
+            <div>23</div>
+            <div>24</div>
+            <div>25</div>
+            <div>26</div>
+            <div>27</div>
+            <div>28</div>
+            <div>29</div>
+            <div>30</div>
+        </div>
+        <style>
+            .flex-container-02 {
+                display: flex;
+                background-color: DodgerBlue;
+                flex-wrap: wrap
+            }
+
+            .flex-container-02>div {
+                background-color: #f1f1f1;
+                margin: 10px;
+                padding: 20px;
+                font-size: 30px;
+            }
+        </style>
+    </div>
+    </div>
+</body>
+
+</html>
